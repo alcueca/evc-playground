@@ -281,10 +281,10 @@ contract VaultSimpleBorrowable is VaultSimple, IERC3156FlashLender {
     /// @notice Pulls debt from an account.
     /// @dev This function decreases the debt of one account and increases the debt of another.
     /// @dev Despite the lack of asset transfers, this function emits Repay and Borrow events.
-    /// @param from The account to pull the debt from.
     /// @param assets The amount of debt to pull.
+    /// @param from The account to pull the debt from.
     /// @return A boolean indicating whether the operation was successful.
-    function pullDebt(address from, uint256 assets) external routedThroughEVC nonReentrant returns (bool) {
+    function pullDebt(uint256 assets, address from) external routedThroughEVC nonReentrant returns (bool) {
         address msgSender = EVCAuthenticate(true);
 
         takeVaultSnapshot();

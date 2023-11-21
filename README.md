@@ -117,10 +117,10 @@ This will download foundryup. To start Foundry, run:
 foundryup
 ```
 
-To clone the repo and install dependencies:
+To clone the repo:
 
 ```sh
-git clone https://github.com/euler-xyz/evc-playground.git && cd evc-playground && yarn
+git clone https://github.com/euler-xyz/evc-playground.git && cd evc-playground
 ```
 
 ## Testing
@@ -130,6 +130,27 @@ To run the tests:
 ```sh
 forge test
 ```
+
+## Deployment on a local anvil fork
+
+First, create the `.env` file in the root directory of the repository. It should contain the following environment variables:
+- `ANVIL_RPC_URL="http://127.0.0.1:8545"` (the default address and port of the anvil fork)
+- `RPC_URL` (remote endpoint from which the state will be fetched)
+- `MNEMONIC` (the mnemonic to be used to generate the accounts. the deployer address will be the first address derived from it. the deployer will become an owner of all the deployed ownable contracts and will additionally be minted some test tokens)
+
+Load the variables in the `.env` file and spin up a local anvil fork:
+
+```sh
+source .env && anvil --fork-url $RPC_URL --mnemonic $MNEMONIC
+```
+
+In different terminal window, deploy the contracts:
+
+```sh
+source .env && forge script script/Deployment.s.sol:Deployment --rpc-url $ANVIL_RPC_URL --broadcast
+```
+
+If deployment successful, the addresses of all the deployed contracts should be console logged in the Logs section.
 
 ## Safety and Limitations
 
