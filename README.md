@@ -133,7 +133,13 @@ forge test
 
 ## Deployment on a local anvil fork
 
-First, create the `.env` file in the root directory of the repository. It should contain the following environment variables:
+First, create the `.env` file in the root directory of the repository by copying `.env.example`:
+
+```sh
+cp .env.example .env
+```
+
+It should contain the following environment variables:
 - `ANVIL_RPC_URL="http://127.0.0.1:8545"` (the default address and port of the anvil fork)
 - `RPC_URL` (remote endpoint from which the state will be fetched)
 - `MNEMONIC` (the mnemonic to be used to generate the accounts. the deployer address will be the first address derived from it. the deployer will become an owner of all the deployed ownable contracts and will additionally be minted some test tokens)
